@@ -1,11 +1,16 @@
+import 'package:bugshooapp/screens/add_bug.dart';
 import 'package:bugshooapp/screens/all_bugs.dart';
 import 'package:bugshooapp/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:bugshooapp/services/functions.dart';
 
-class AppDrawer extends StatelessWidget {
-  AppDrawer({@required this.loggedInUser});
+class AppDrawer extends StatefulWidget {
+  @override
+  _AppDrawerState createState() => _AppDrawerState();
+}
 
-  final String loggedInUser;
+class _AppDrawerState extends State<AppDrawer> {
+  String userEmail = user.email;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +18,7 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           DrawerHeader(
-            child: Text('Hello $loggedInUser'),
+            child: Text('Hello $userEmail'),
           ),
           NavigationItem(
             leftIcon: Icons.bug_report,
@@ -21,13 +26,19 @@ class AppDrawer extends StatelessWidget {
             destination: AllBugs.id,
           ),
           NavigationItem(
+            leftIcon: Icons.add_circle,
+            navItemName: 'Add Bugs',
+            destination: AddBug.id,
+          ),
+          NavigationItem(
             leftIcon: Icons.adb,
-            navItemName: 'Login Screen',
+            navItemName: 'Log Out',
             destination: LoginScreen.id,
           ),
         ],
       ),
     );
+    ;
   }
 }
 

@@ -23,7 +23,7 @@ class _DetailedBugState extends State<DetailedBug> {
       appBar: AppBar(
         title: Text('Bug $bugID'),
       ),
-      drawer: AppDrawer(loggedInUser: loggedInUser),
+      drawer: AppDrawer(),
       body: Center(
         child: Text(description),
       ),

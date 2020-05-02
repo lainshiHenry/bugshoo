@@ -1,3 +1,4 @@
+import 'package:bugshooapp/screens/add_bug.dart';
 import 'package:bugshooapp/screens/all_bugs.dart';
 import 'package:bugshooapp/screens/detailed_bug.dart';
 import 'package:bugshooapp/screens/login_screen.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         SettingsScreen.id: (context) => SettingsScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         DetailedBug.routeArgs: (context) => DetailedBug(),
+        AddBug.id: (context) => AddBug(),
       },
     );
   }

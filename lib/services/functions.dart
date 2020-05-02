@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+FirebaseUser loggedInUser;
+final _auth = FirebaseAuth.instance;
+var user;
 
 Widget bugStatus(bugStatus) {
   String text;
@@ -43,4 +48,16 @@ Widget bugStatus(bugStatus) {
     text,
     style: textStyle,
   );
+}
+
+void getCurrentUser() async {
+  user = await _auth.currentUser();
+  if (user != null) {
+    try {
+      loggedInUser = user;
+      print(loggedInUser.email);
+    } catch (e) {
+      print(e);
+    }
+  }
 }
