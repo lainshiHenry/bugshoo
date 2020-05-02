@@ -1,4 +1,5 @@
-import 'package:bugshooapp/screens/bug_list.dart';
+import 'package:bugshooapp/screens/all_bugs.dart';
+import 'package:bugshooapp/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -17,7 +18,12 @@ class AppDrawer extends StatelessWidget {
           NavigationItem(
             leftIcon: Icons.bug_report,
             navItemName: 'All Bugs',
-            destination: BugList.id,
+            destination: AllBugs.id,
+          ),
+          NavigationItem(
+            leftIcon: Icons.adb,
+            navItemName: 'Login Screen',
+            destination: LoginScreen.id,
           ),
         ],
       ),

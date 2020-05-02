@@ -1,4 +1,4 @@
-import 'package:bugshooapp/screens/bug_list.dart';
+import 'package:bugshooapp/screens/all_bugs.dart';
 import 'package:bugshooapp/screens/detailed_bug.dart';
 import 'package:bugshooapp/screens/login_screen.dart';
 import 'package:bugshooapp/screens/project_list.dart';
@@ -13,13 +13,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: BugList.id,
+      initialRoute: LoginScreen.id,
       routes: {
         ProjectList.id: (context) => ProjectList(),
-        BugList.id: (context) => BugList(),
+        AllBugs.id: (context) => AllBugs(),
         DetailedBug.id: (context) => DetailedBug(),
         SettingsScreen.id: (context) => SettingsScreen(),
         LoginScreen.id: (context) => LoginScreen(),
+        DetailedBug.routeArgs: (context) => DetailedBug(),
       },
     );
   }

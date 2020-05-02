@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:bugshooapp/utilities/constants.dart';
 
-Text bugStatus(bugStatus) {
+Widget bugStatus(bugStatus) {
   String text;
   TextStyle textStyle;
 
   switch (bugStatus) {
-    case kBugStatus.Open:
+    case 'Open':
       text = 'Open';
       textStyle = TextStyle(
         color: Colors.black,
         backgroundColor: Colors.white,
       );
       break;
-    case kBugStatus.InProgress:
+    case 'In Progress':
       text = 'In Progress';
       textStyle = TextStyle(
         color: Colors.white,
         backgroundColor: Colors.redAccent,
       );
       break;
-    case kBugStatus.Testing:
+    case 'Testing':
       text = 'Testing';
       textStyle = TextStyle(
         color: Colors.black,
         backgroundColor: Colors.lightGreen,
       );
       break;
-    case kBugStatus.Completed:
+    case 'Completed':
       text = 'Completed';
       textStyle = TextStyle(
         color: Colors.white,
