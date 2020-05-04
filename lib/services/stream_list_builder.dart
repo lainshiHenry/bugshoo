@@ -5,15 +5,16 @@ import 'package:bugshooapp/screens/detailed_bug.dart';
 import 'package:bugshooapp/utilities/arguments/detailed_bug_args.dart';
 import 'package:intl/intl.dart';
 
-final firestoreInstance = Firestore.instance;
+final _firestoreInstance = Firestore.instance;
+int bugListCount = 1;
 
 class StreamListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: firestoreInstance
+        stream: _firestoreInstance
             .collection('bugs')
-            .orderBy('bugID', descending: false)
+            .orderBy('createdOn', descending: false)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -59,12 +60,14 @@ class StreamListBuilder extends StatelessWidget {
                   arguments: DetailedBugArguments(
                     bugID: bugID,
                     description: description,
+                    timestamp: createdOnTimeStamp,
                   ),
                 );
               },
             );
 
             openBugListItems.add(listItem);
+            bugListCount = openBugListItems.length + 1;
           }
           return Expanded(
             child: ListView(

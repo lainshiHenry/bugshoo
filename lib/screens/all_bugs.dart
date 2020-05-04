@@ -1,3 +1,4 @@
+import 'package:bugshooapp/screens/add_bug.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bugshooapp/utilities/app_drawer.dart';
@@ -17,20 +18,18 @@ class _AllBugsState extends State<AllBugs> {
     getCurrentUser();
   }
 
-  /*void messagesStream() async {
-    await for (var snapshot in _firestore.collection('bugs').snapshots()) {
-      for (var bugs in snapshot.documents) {
-        print(bugs.data);
-      }
-    }
-  }
-*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('All Bugs'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.pushNamed(context, AddBug.id);
+              })
+        ],
       ),
       drawer: AppDrawer(),
       body: BugList(),

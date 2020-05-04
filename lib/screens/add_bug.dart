@@ -1,6 +1,12 @@
+import 'package:bugshooapp/screens/all_bugs.dart';
 import 'package:bugshooapp/utilities/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:bugshooapp/services/stream_list_builder.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bugshooapp/utilities/constants.dart';
+
+final _firestoreInstance = Firestore.instance;
 
 class AddBug extends StatefulWidget {
   static String id = 'add_bug';
@@ -10,6 +16,8 @@ class AddBug extends StatefulWidget {
 
 class _AddBugState extends State<AddBug> {
   String title;
+  String description = 'Testing';
+  bool _savingData = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,33 +26,60 @@ class _AddBugState extends State<AddBug> {
         title: Text('Add Bug'),
       ),
       drawer: AppDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: TextField(
-              onChanged: (value) {
-                title = value;
-                print(title);
+      body: ModalProgressHUD(
+        inAsyncCall: _savingData,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: TextField(
+                onChanged: (value) {
+                  title = value;
+                  print(title);
+                },
+                decoration: kTextFieldDecoration.copyWith(
+                  hintText: 'Title',
+                ),
+              ),
+            ),
+            FlatButton(
+              child: Text(
+                'Add Bug',
+                style: kButtonTextStyle,
+              ),
+              onPressed: () async {
+                String currentTimestamp =
+                    DateTime.now().millisecondsSinceEpoch.toString();
+
+                setState(() {
+                  _savingData = true;
+                });
+
+                try {
+                  await _firestoreInstance
+                      .collection('bugs')
+                      .document(currentTimestamp)
+                      .setData({
+                    'title': title,
+                    'assignedTo': 'null',
+                    'status': 'Open',
+                    'description': '$description',
+                    'bugID': '$bugListCount',
+                    'project': 'BugShoo',
+                    'createdOn': currentTimestamp,
+                  }, merge: true);
+                } catch (e) {
+                  print(e);
+                }
+                setState(() {
+                  _savingData = false;
+                });
+
+                Navigator.pushNamed(context, AllBugs.id);
               },
             ),
-          ),
-          FlatButton(
-            child: Text('Add Bug'),
-            color: Colors.black,
-            textColor: Colors.white,
-            onPressed: () {
-              firestoreInstance.collection('bugs').add({
-                'title': title,
-                'assignedTo': 'Henry Le',
-                'status': 'Open',
-                'description': 'Testing',
-                'bugID': 'BS-010',
-                'createdOn': DateTime.now().millisecondsSinceEpoch.toString(),
-              });
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

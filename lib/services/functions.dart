@@ -61,3 +61,11 @@ void getCurrentUser() async {
     }
   }
 }
+
+void signOutCurrentUser() async {
+  try {
+    _auth.signOut();
+  } catch (e) {
+    print(e);
+  }
+}
