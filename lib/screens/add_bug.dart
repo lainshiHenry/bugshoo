@@ -78,8 +78,8 @@ class _AddBugState extends State<AddBug> {
                     'title': title,
                     'assignedTo': 'null',
                     'status': 'Open',
-                    'description': '$description',
-                    'bugID': '$bugListCount',
+                    'description': description,
+                    'bugID': bugListCount,
                     'project': 'BugShoo',
                     'createdOn': currentTimestamp,
                   }, merge: true);
