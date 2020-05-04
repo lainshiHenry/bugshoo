@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseUser loggedInUser;
 final _auth = FirebaseAuth.instance;
-var user;
 
 Widget bugStatus(bugStatus) {
   String text;
@@ -31,8 +30,8 @@ Widget bugStatus(bugStatus) {
         backgroundColor: Colors.lightGreen,
       );
       break;
-    case 'Completed':
-      text = 'Completed';
+    case 'Resolved':
+      text = 'Resolved';
       textStyle = TextStyle(
         color: Colors.white,
         backgroundColor: Colors.green[900],
@@ -51,11 +50,10 @@ Widget bugStatus(bugStatus) {
 }
 
 void getCurrentUser() async {
-  user = await _auth.currentUser();
-  if (user != null) {
+  final _user = await _auth.currentUser();
+  if (_user != null) {
     try {
-      loggedInUser = user;
-      print(loggedInUser.email);
+      loggedInUser = _user;
     } catch (e) {
       print(e);
     }

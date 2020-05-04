@@ -1,5 +1,6 @@
 import 'package:bugshooapp/screens/all_bugs.dart';
 import 'package:bugshooapp/utilities/app_drawer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bugshooapp/services/stream_list_builder.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -30,6 +31,7 @@ class _AddBugState extends State<AddBug> {
         inAsyncCall: _savingData,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
               child: TextField(
@@ -39,6 +41,19 @@ class _AddBugState extends State<AddBug> {
                 },
                 decoration: kTextFieldDecoration.copyWith(
                   hintText: 'Title',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 14.0,
+            ),
+            Expanded(
+              child: TextField(
+                onChanged: (value) {
+                  description = value;
+                },
+                decoration: kTextFieldDecoration.copyWith(
+                  hintText: 'Bug Description',
                 ),
               ),
             ),

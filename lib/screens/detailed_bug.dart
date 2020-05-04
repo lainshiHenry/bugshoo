@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bugshooapp/utilities/constants.dart';
-import 'package:bugshooapp/utilities/snackbar_page.dart';
 
 final _firestoreInstance = Firestore.instance;
 
@@ -26,7 +25,7 @@ class _DetailedBugState extends State<DetailedBug> {
     String description = args.description;
     String timestamp = args.timestamp;
     String currentUser = 'Henry Le';
-    String assignedToSelfText;
+    String snackBarText;
 
     return Scaffold(
       appBar: AppBar(
@@ -47,18 +46,43 @@ class _DetailedBugState extends State<DetailedBug> {
                     await _firestoreInstance
                         .collection('bugs')
                         .document(timestamp)
-                        .setData({'assignedTo': currentUser}, merge: true);
+                        .setData({
+                      'assignedTo': currentUser,
+                      'status': 'In Progress',
+                    }, merge: true);
 
-                    assignedToSelfText = 'Assigned to $currentUser';
+                    snackBarText = 'Assigned to $currentUser';
 
                     Scaffold.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(assignedToSelfText),
+                        content: Text(snackBarText),
                       ),
                     );
                   },
                   child: Text(
                     'Assign to Self',
+                    style: kButtonTextStyle,
+                  ),
+                ),
+                FlatButton(
+                  onPressed: () async {
+                    await _firestoreInstance
+                        .collection('bugs')
+                        .document(timestamp)
+                        .setData({
+                      'status': 'Resolved',
+                    }, merge: true);
+
+                    String snackBarText = 'Bug Resolved';
+
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(snackBarText),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Bug Resolved',
                     style: kButtonTextStyle,
                   ),
                 ),
