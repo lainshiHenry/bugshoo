@@ -1,3 +1,5 @@
+import 'package:bugshooapp/services/firestore_functions.dart';
+import 'package:bugshooapp/utilities/app_drawer.dart';
 import 'package:flutter/material.dart';
 
 class ProjectList extends StatefulWidget {
@@ -13,7 +15,8 @@ class _ProjectListState extends State<ProjectList> {
       appBar: AppBar(
         title: Text('Project List'),
       ),
-      body: Text('Body'),
+      drawer: AppDrawer(),
+      body: returnProjectList(),
     );
   }
 }

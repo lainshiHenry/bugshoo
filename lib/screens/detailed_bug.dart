@@ -7,6 +7,10 @@ import 'package:bugshooapp/utilities/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 final _firestoreInstance = Firestore.instance;
+final CollectionReference _firestoreStreamPrefix = _firestoreInstance
+    .collection('projectList')
+    .document('o5oAsZs1ur9H38lOHuR3')
+    .collection('BugShoo');
 
 class DetailedBug extends StatefulWidget {
   static String id = 'detailed_bug';
@@ -54,10 +58,7 @@ class _DetailedBugState extends State<DetailedBug> {
                         _savingData = true;
                       });
 
-                      await _firestoreInstance
-                          .collection('bugs')
-                          .document(timestamp)
-                          .setData({
+                      await _firestoreStreamPrefix.document(timestamp).setData({
                         'assignedTo': currentUser,
                         'assignedOn': currentTimestamp,
                         'status': 'In Progress',
@@ -89,10 +90,7 @@ class _DetailedBugState extends State<DetailedBug> {
                         _savingData = true;
                       });
 
-                      await _firestoreInstance
-                          .collection('bugs')
-                          .document(timestamp)
-                          .setData({
+                      await _firestoreStreamPrefix.document(timestamp).setData({
                         'resolvedOn': currentTimestamp,
                         'status': 'Resolved',
                       }, merge: true);

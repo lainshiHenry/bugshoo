@@ -4,6 +4,7 @@ import 'package:bugshooapp/screens/detailed_bug.dart';
 import 'package:bugshooapp/screens/login_screen.dart';
 import 'package:bugshooapp/screens/project_list.dart';
 import 'package:bugshooapp/screens/registration_screen.dart';
+import 'package:bugshooapp/screens/reports_screen.dart';
 import 'package:bugshooapp/screens/settings.dart';
 import 'package:bugshooapp/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         AddBug.id: (context) => AddBug(),
         WelcomeScreen.id: (context) => WelcomeScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
+        ReportsScreen.id: (context) => ReportsScreen(),
       },
     );
   }

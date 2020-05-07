@@ -1,5 +1,7 @@
 import 'package:bugshooapp/screens/add_bug.dart';
 import 'package:bugshooapp/screens/all_bugs.dart';
+import 'package:bugshooapp/screens/project_list.dart';
+import 'package:bugshooapp/screens/reports_screen.dart';
 import 'package:bugshooapp/screens/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class _AppDrawerState extends State<AppDrawer> {
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-              child: Text('Hello'),
+              child: Text('Hello '),
             ),
             NavigationItem(
               leftIcon: Icons.bug_report,
@@ -33,6 +35,16 @@ class _AppDrawerState extends State<AppDrawer> {
               leftIcon: Icons.add_circle,
               navItemName: 'Add Bugs',
               destination: AddBug.id,
+            ),
+            NavigationItem(
+              leftIcon: Icons.list,
+              navItemName: 'Project List',
+              destination: ProjectList.id,
+            ),
+            NavigationItem(
+              leftIcon: Icons.insert_chart,
+              navItemName: 'Reports',
+              destination: ReportsScreen.id,
             ),
             ListTile(
               leading: Icon(Icons.cloud_off),

@@ -1,8 +1,8 @@
 import 'package:bugshooapp/screens/all_bugs.dart';
+import 'package:bugshooapp/services/firestore_functions.dart';
 import 'package:bugshooapp/utilities/app_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bugshooapp/services/stream_list_builder.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bugshooapp/utilities/constants.dart';
@@ -17,8 +17,9 @@ class AddBug extends StatefulWidget {
 
 class _AddBugState extends State<AddBug> {
   String title;
-  String description = 'Testing';
+  String description = '';
   bool _savingData = false;
+  String projectDropDownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _AddBugState extends State<AddBug> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Expanded(
+            Container(
               child: TextField(
                 onChanged: (value) {
                   title = value;
@@ -47,7 +48,7 @@ class _AddBugState extends State<AddBug> {
             SizedBox(
               height: 14.0,
             ),
-            Expanded(
+            Container(
               child: TextField(
                 onChanged: (value) {
                   description = value;
@@ -57,41 +58,61 @@ class _AddBugState extends State<AddBug> {
                 ),
               ),
             ),
-            FlatButton(
-              child: Text(
-                'Add Bug',
-                style: kButtonTextStyle,
-              ),
-              onPressed: () async {
-                String currentTimestamp =
-                    DateTime.now().millisecondsSinceEpoch.toString();
+            SizedBox(
+              height: 14.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                DropdownButton<String>(
+                  value: projectDropDownValue,
+                  hint: Text('Select a project'),
+                  items: [
+                    DropdownMenuItem(
+                      child: Text(kProjectList[0]),
+                      value: kProjectList[0],
+                    ),
+                    DropdownMenuItem(
+                      child: Text(kProjectList[1]),
+                      value: kProjectList[1],
+                    ),
+                    DropdownMenuItem(
+                      child: Text(kProjectList[2]),
+                      value: kProjectList[2],
+                    ),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      projectDropDownValue = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 14.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  child: Text(
+                    'Add Bug',
+                    style: kButtonTextStyle,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _savingData = true;
+                    });
+                    addBugs(title, description, projectDropDownValue);
+                    setState(() {
+                      _savingData = false;
+                    });
 
-                setState(() {
-                  _savingData = true;
-                });
-
-                try {
-                  await _firestoreInstance
-                      .collection('bugs')
-                      .document(currentTimestamp)
-                      .setData({
-                    'title': title,
-                    'assignedTo': 'null',
-                    'status': 'Open',
-                    'description': description,
-                    'bugID': bugListCount,
-                    'project': 'BugShoo',
-                    'createdOn': currentTimestamp,
-                  }, merge: true);
-                } catch (e) {
-                  print(e);
-                }
-                setState(() {
-                  _savingData = false;
-                });
-
-                Navigator.pushNamed(context, AllBugs.id);
-              },
+                    Navigator.pushNamed(context, AllBugs.id);
+                  },
+                ),
+              ],
             ),
           ],
         ),

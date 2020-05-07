@@ -14,10 +14,29 @@
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/png" href="favicon.png"/>
 
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+  <script defer src="main.dart.js" type="application/javascript"></script>
   <title>BugShoo</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAOOrOj2MK6D-b3BCZkhyJElmsHlDg1-vs",
+    authDomain: "bugshoo-5d474.firebaseapp.com",
+    databaseURL: "https://bugshoo-5d474.firebaseio.com",
+    projectId: "bugshoo-5d474",
+    storageBucket: "bugshoo-5d474.appspot.com",
+    messagingSenderId: "11087511183",
+    appId: "1:11087511183:web:7443bbc56fa0042d007afa",
+    measurementId: "G-KW88SL7B8X"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->

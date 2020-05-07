@@ -9,13 +9,14 @@ final _firestoreInstance = Firestore.instance;
 int bugListCount = 1;
 
 class StreamListBuilder extends StatelessWidget {
+  final _desiredStream;
+
+  StreamListBuilder(this._desiredStream);
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: _firestoreInstance
-            .collection('bugs')
-            .orderBy('createdOn', descending: false)
-            .snapshots(),
+        stream: _desiredStream,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -26,19 +27,20 @@ class StreamListBuilder extends StatelessWidget {
           List<ListTile> openBugListItems = [];
 
           for (var bugListItem in bugList) {
-            final bugID = bugListItem.data['bugID'];
-            final title = bugListItem.data['title'];
+            final String bugID = bugListItem.data['bugID'].toString();
+            final String title = bugListItem.data['title'];
             final createdOnTimeStamp = bugListItem.data['createdOn'];
             final createdOnTemp = DateTime.fromMillisecondsSinceEpoch(
                 int.parse(createdOnTimeStamp));
-            final createdOn = DateFormat.yMMMd('en_US').format(createdOnTemp);
+            final String createdOn =
+                DateFormat.yMMMd('en_US').format(createdOnTemp);
 
             final String status = bugListItem.data['status'];
             final String assignedTo = bugListItem.data['assignedTo'];
             final String description = bugListItem.data['description'];
 
             final listItem = ListTile(
-              leading: Text(bugID),
+              leading: Text(bugID.toString()),
               title: Text(
                 title,
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -69,12 +71,23 @@ class StreamListBuilder extends StatelessWidget {
             openBugListItems.add(listItem);
             bugListCount = openBugListItems.length + 1;
           }
-          return Expanded(
-            child: ListView(
+          return Container(
+            child: ListView.separated(
+              itemCount: openBugListItems.length,
               padding: EdgeInsets.symmetric(
                 vertical: 20.0,
               ),
-              children: openBugListItems,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  child: openBugListItems[index],
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(
+                thickness: 2.0,
+                indent: 30.0,
+                endIndent: 30.0,
+              ),
             ),
           );
         });

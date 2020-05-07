@@ -21,3 +21,9 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
+
+const kProjectList = <String>[
+  'BugShoo',
+  'Bearserk Pantry',
+  'Winnipeg Transit App'
+];

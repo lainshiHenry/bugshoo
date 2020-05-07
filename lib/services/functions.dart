@@ -49,7 +49,7 @@ Widget bugStatus(bugStatus) {
   );
 }
 
-void getCurrentUser() async {
+Future<FirebaseUser> getCurrentUser() async {
   final _user = await _auth.currentUser();
   if (_user != null) {
     try {
@@ -58,6 +58,7 @@ void getCurrentUser() async {
       print(e);
     }
   }
+  return _user;
 }
 
 void signOutCurrentUser() async {
