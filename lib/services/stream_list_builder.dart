@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bugshooapp/services/functions.dart';
 import 'package:bugshooapp/screens/detailed_bug.dart';
-import 'package:bugshooapp/utilities/arguments/detailed_bug_args.dart';
+import 'package:bugshooapp/utilities/arguments.dart';
 import 'package:intl/intl.dart';
 
-final _firestoreInstance = Firestore.instance;
 int bugListCount = 1;
 
 class StreamListBuilder extends StatelessWidget {
-  final _desiredStream;
+  final desiredStream;
+  final String projectName;
 
-  StreamListBuilder(this._desiredStream);
+  StreamListBuilder({this.desiredStream, this.projectName});
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: _desiredStream,
+        stream: desiredStream,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -63,6 +63,7 @@ class StreamListBuilder extends StatelessWidget {
                     bugID: bugID,
                     description: description,
                     timestamp: createdOnTimeStamp,
+                    projectName: projectName,
                   ),
                 );
               },

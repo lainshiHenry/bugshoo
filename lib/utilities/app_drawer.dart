@@ -27,19 +27,14 @@ class _AppDrawerState extends State<AppDrawer> {
               child: Text('Hello '),
             ),
             NavigationItem(
-              leftIcon: Icons.bug_report,
-              navItemName: 'All Bugs',
-              destination: AllBugs.id,
+              leftIcon: Icons.list,
+              navItemName: 'Project List',
+              destination: ProjectList.id,
             ),
             NavigationItem(
               leftIcon: Icons.add_circle,
               navItemName: 'Add Bugs',
               destination: AddBug.id,
-            ),
-            NavigationItem(
-              leftIcon: Icons.list,
-              navItemName: 'Project List',
-              destination: ProjectList.id,
             ),
             NavigationItem(
               leftIcon: Icons.insert_chart,

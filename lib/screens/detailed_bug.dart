@@ -1,16 +1,12 @@
 import 'package:bugshooapp/utilities/app_drawer.dart';
-import 'package:bugshooapp/utilities/arguments/detailed_bug_args.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bugshooapp/utilities/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:bugshooapp/utilities/arguments.dart';
 
 final _firestoreInstance = Firestore.instance;
-final CollectionReference _firestoreStreamPrefix = _firestoreInstance
-    .collection('projectList')
-    .document('o5oAsZs1ur9H38lOHuR3')
-    .collection('BugShoo');
 
 class DetailedBug extends StatefulWidget {
   static String id = 'detailed_bug';
@@ -29,6 +25,7 @@ class _DetailedBugState extends State<DetailedBug> {
     String bugID = args.bugID;
     String description = args.description;
     String timestamp = args.timestamp;
+    String projectName = args.projectName;
     String currentUser = 'Henry Le';
     String snackBarText;
     bool _savingData = false;
@@ -58,7 +55,12 @@ class _DetailedBugState extends State<DetailedBug> {
                         _savingData = true;
                       });
 
-                      await _firestoreStreamPrefix.document(timestamp).setData({
+                      await _firestoreInstance
+                          .collection('projectList')
+                          .document(projectName)
+                          .collection(projectName)
+                          .document(timestamp)
+                          .setData({
                         'assignedTo': currentUser,
                         'assignedOn': currentTimestamp,
                         'status': 'In Progress',
@@ -90,7 +92,12 @@ class _DetailedBugState extends State<DetailedBug> {
                         _savingData = true;
                       });
 
-                      await _firestoreStreamPrefix.document(timestamp).setData({
+                      await _firestoreInstance
+                          .collection('projectList')
+                          .document(projectName)
+                          .collection(projectName)
+                          .document(timestamp)
+                          .setData({
                         'resolvedOn': currentTimestamp,
                         'status': 'Resolved',
                       }, merge: true);
