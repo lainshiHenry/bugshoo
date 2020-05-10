@@ -1,3 +1,4 @@
+import 'package:bugshooapp/screens/add_bug.dart';
 import 'package:bugshooapp/services/firestore_functions.dart';
 import 'package:bugshooapp/utilities/app_drawer.dart';
 import 'package:bugshooapp/utilities/arguments.dart';
@@ -18,7 +19,14 @@ class _AllBugsByProjectState extends State<AllBugsByProject> {
     final String projectName = args.projectName;
     return Scaffold(
       appBar: AppBar(
-        title: Text('All Bugs By $projectName'),
+        title: Text('All Bugs From $projectName'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.pushNamed(context, AddBug.id);
+              }),
+        ],
       ),
       drawer: AppDrawer(),
       body: SafeArea(

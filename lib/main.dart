@@ -1,4 +1,5 @@
 import 'package:bugshooapp/screens/add_bug.dart';
+import 'package:bugshooapp/screens/add_project.dart';
 import 'package:bugshooapp/screens/all_bugs.dart';
 import 'package:bugshooapp/screens/all_bugs_by_project.dart';
 import 'package:bugshooapp/screens/detailed_bug.dart';
@@ -18,8 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: WelcomeScreen.id,
       routes: {
+        '/': (context) => WelcomeScreen(),
+        WelcomeScreen.id: (context) => WelcomeScreen(),
         ProjectList.id: (context) => ProjectList(),
         AllBugs.id: (context) => AllBugs(),
         DetailedBug.id: (context) => DetailedBug(),
@@ -27,10 +29,10 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         DetailedBug.routeArgs: (context) => DetailedBug(),
         AddBug.id: (context) => AddBug(),
-        WelcomeScreen.id: (context) => WelcomeScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         ReportsScreen.id: (context) => ReportsScreen(),
         AllBugsByProject.id: (context) => AllBugsByProject(),
+        AddProject.id: (context) => AddProject(),
       },
     );
   }

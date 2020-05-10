@@ -1,4 +1,5 @@
 import 'package:bugshooapp/screens/all_bugs.dart';
+import 'package:bugshooapp/screens/project_list.dart';
 import 'package:bugshooapp/utilities/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -78,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     final loggedInUser = await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
                     if (loggedInUser != null) {
-                      Navigator.pushNamed(context, AllBugs.id);
+                      Navigator.pushNamed(context, ProjectList.id);
                     }
 
                     setState(() {

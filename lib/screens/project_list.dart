@@ -1,8 +1,10 @@
+import 'package:bugshooapp/screens/add_project.dart';
 import 'package:bugshooapp/screens/all_bugs.dart';
 import 'package:bugshooapp/screens/all_bugs_by_project.dart';
 import 'package:bugshooapp/services/firestore_functions.dart';
 import 'package:bugshooapp/utilities/app_drawer.dart';
 import 'package:bugshooapp/utilities/arguments.dart';
+import 'package:bugshooapp/utilities/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +23,14 @@ class _ProjectListState extends State<ProjectList> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Project List'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                print('Add Button Pressed');
+                Navigator.pushNamed(context, AddProject.id);
+              }),
+        ],
       ),
       drawer: AppDrawer(),
       body: StreamBuilder<QuerySnapshot>(
@@ -48,6 +58,7 @@ class _ProjectListState extends State<ProjectList> {
               },
             );
             projectNameList.add(listItem);
+            kProjectList.add(projectName);
             projectListCount = projectNameList.length + 1;
           }
 

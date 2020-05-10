@@ -42,3 +42,16 @@ void addBugs(String title, String description, String project) async {
     print(e);
   }
 }
+
+void addProject(String project) async {
+  try {
+    await _firestoreInstance
+        .collection('projectList')
+        .document('$project')
+        .setData({
+      'projectName': '$project',
+    }, merge: true);
+  } catch (e) {
+    print(e);
+  }
+}

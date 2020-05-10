@@ -1,4 +1,4 @@
-import 'package:bugshooapp/screens/all_bugs.dart';
+import 'package:bugshooapp/screens/all_bugs_by_project.dart';
 import 'package:bugshooapp/services/firestore_functions.dart';
 import 'package:bugshooapp/utilities/app_drawer.dart';
 import 'package:flutter/cupertino.dart';
@@ -64,10 +64,11 @@ class _AddBugState extends State<AddBug> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                DropdownButton<String>(
+                DropdownButton(
                   value: projectDropDownValue,
                   hint: Text('Select a project'),
-                  items: [
+                  items: projectDropDownList(),
+                  /*[
                     DropdownMenuItem(
                       child: Text(kProjectList[0]),
                       value: kProjectList[0],
@@ -80,7 +81,7 @@ class _AddBugState extends State<AddBug> {
                       child: Text(kProjectList[2]),
                       value: kProjectList[2],
                     ),
-                  ],
+                  ],*/
                   onChanged: (value) {
                     setState(() {
                       projectDropDownValue = value;
@@ -104,12 +105,16 @@ class _AddBugState extends State<AddBug> {
                     setState(() {
                       _savingData = true;
                     });
-                    addBugs(title, description, projectDropDownValue);
-                    setState(() {
-                      _savingData = false;
-                    });
+                    try {
+                      addBugs(title, description, projectDropDownValue);
+                      setState(() {
+                        _savingData = false;
+                      });
+                    } catch (e) {
+                      print(e);
+                    }
 
-                    Navigator.pushNamed(context, AllBugs.id);
+                    Navigator.pushNamed(context, AllBugsByProject.id);
                   },
                 ),
               ],
@@ -119,4 +124,19 @@ class _AddBugState extends State<AddBug> {
       ),
     );
   }
+}
+
+List<DropdownMenuItem> projectDropDownList() {
+  List<DropdownMenuItem> list = <DropdownMenuItem>[];
+
+  for (String listItem in kProjectList) {
+    final dropDownItem = DropdownMenuItem(
+      child: Text(listItem),
+      value: listItem,
+    );
+
+    list.add(dropDownItem);
+  }
+
+  return list;
 }

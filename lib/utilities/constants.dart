@@ -22,8 +22,4 @@ const kTextFieldDecoration = InputDecoration(
   ),
 );
 
-const kProjectList = <String>[
-  'BugShoo',
-  'Bearserk Pantry',
-  'Winnipeg Transit App'
-];
+List<String> kProjectList = [];
