@@ -1,12 +1,10 @@
 import 'package:bugshooapp/utilities/app_drawer.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bugshooapp/utilities/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:bugshooapp/utilities/arguments.dart';
-
-final _firestoreInstance = Firestore.instance;
+import 'package:bugshooapp/services/firestore_functions.dart';
 
 class DetailedBug extends StatefulWidget {
   static String id = 'detailed_bug';
@@ -26,13 +24,18 @@ class _DetailedBugState extends State<DetailedBug> {
     String description = args.description;
     String timestamp = args.timestamp;
     String projectName = args.projectName;
-    String currentUser = 'Henry Le';
-    String snackBarText;
+    String currentUser = loggedInUser;
     bool _savingData = false;
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Bug $bugID'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       drawer: AppDrawer(),
       body: Builder(
@@ -48,29 +51,16 @@ class _DetailedBugState extends State<DetailedBug> {
                 children: <Widget>[
                   FlatButton(
                     onPressed: () async {
-                      String currentTimestamp =
-                          DateTime.now().millisecondsSinceEpoch.toString();
+                      String snackBarText;
+                      setState(() => _savingData = true);
 
-                      setState(() {
-                        _savingData = true;
-                      });
+                      snackBarText = await assignBugToUser(
+                        projectName: projectName,
+                        timestamp: timestamp,
+                        name: currentUser,
+                      );
 
-                      await _firestoreInstance
-                          .collection('projectList')
-                          .document(projectName)
-                          .collection(projectName)
-                          .document(timestamp)
-                          .setData({
-                        'assignedTo': currentUser,
-                        'assignedOn': currentTimestamp,
-                        'status': 'In Progress',
-                      }, merge: true);
-
-                      setState(() {
-                        _savingData = false;
-                      });
-
-                      snackBarText = 'Assigned to $currentUser';
+                      setState(() => _savingData = false);
 
                       Scaffold.of(context).showSnackBar(
                         SnackBar(
@@ -85,28 +75,16 @@ class _DetailedBugState extends State<DetailedBug> {
                   ),
                   FlatButton(
                     onPressed: () async {
-                      String currentTimestamp =
-                          DateTime.now().millisecondsSinceEpoch.toString();
+                      String snackBarText;
 
-                      setState(() {
-                        _savingData = true;
-                      });
+                      setState(() => _savingData = true);
 
-                      await _firestoreInstance
-                          .collection('projectList')
-                          .document(projectName)
-                          .collection(projectName)
-                          .document(timestamp)
-                          .setData({
-                        'resolvedOn': currentTimestamp,
-                        'status': 'Resolved',
-                      }, merge: true);
+                      snackBarText = await resolveBug(
+                        projectName: projectName,
+                        timestamp: timestamp,
+                      );
 
-                      setState(() {
-                        _savingData = false;
-                      });
-
-                      String snackBarText = 'Bug Resolved';
+                      setState(() => _savingData = false);
 
                       Scaffold.of(context).showSnackBar(
                         SnackBar(

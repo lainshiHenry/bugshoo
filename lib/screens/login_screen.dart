@@ -1,4 +1,3 @@
-import 'package:bugshooapp/screens/all_bugs.dart';
 import 'package:bugshooapp/screens/project_list.dart';
 import 'package:bugshooapp/utilities/rounded_button.dart';
 import 'package:flutter/material.dart';

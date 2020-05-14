@@ -1,3 +1,4 @@
+import 'package:bugshooapp/services/firestore_functions.dart';
 import 'package:flutter/material.dart';
 
 class ReportsScreen extends StatefulWidget {
@@ -9,6 +10,16 @@ class ReportsScreen extends StatefulWidget {
 class _ReportsScreenState extends State<ReportsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: FlatButton(
+          onPressed: () {
+            getProjectDetails();
+          },
+          child: Text('Get Data'),
+        ),
+      ),
+    );
   }
 }

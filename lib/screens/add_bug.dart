@@ -1,13 +1,9 @@
-import 'package:bugshooapp/screens/all_bugs_by_project.dart';
+import 'package:bugshooapp/screens/project_list.dart';
 import 'package:bugshooapp/services/firestore_functions.dart';
 import 'package:bugshooapp/utilities/app_drawer.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bugshooapp/utilities/constants.dart';
-
-final _firestoreInstance = Firestore.instance;
 
 class AddBug extends StatefulWidget {
   static String id = 'add_bug';
@@ -67,8 +63,8 @@ class _AddBugState extends State<AddBug> {
                 DropdownButton(
                   value: projectDropDownValue,
                   hint: Text('Select a project'),
-                  items: projectDropDownList(),
-                  /*[
+                  items: //projectDropDownList(),
+                      [
                     DropdownMenuItem(
                       child: Text(kProjectList[0]),
                       value: kProjectList[0],
@@ -81,7 +77,11 @@ class _AddBugState extends State<AddBug> {
                       child: Text(kProjectList[2]),
                       value: kProjectList[2],
                     ),
-                  ],*/
+                    DropdownMenuItem(
+                      child: Text(kProjectList[3]),
+                      value: kProjectList[3],
+                    ),
+                  ],
                   onChanged: (value) {
                     setState(() {
                       projectDropDownValue = value;
@@ -114,7 +114,7 @@ class _AddBugState extends State<AddBug> {
                       print(e);
                     }
 
-                    Navigator.pushNamed(context, AllBugsByProject.id);
+                    Navigator.pushNamed(context, ProjectList.id);
                   },
                 ),
               ],

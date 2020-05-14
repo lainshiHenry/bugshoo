@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseUser loggedInUser;
-final _auth = FirebaseAuth.instance;
 
 Widget bugStatus(bugStatus) {
   String text;
@@ -50,6 +49,7 @@ Widget bugStatus(bugStatus) {
 }
 
 Future<FirebaseUser> getCurrentUser() async {
+  final _auth = FirebaseAuth.instance;
   final _user = await _auth.currentUser();
   if (_user != null) {
     try {
@@ -62,6 +62,8 @@ Future<FirebaseUser> getCurrentUser() async {
 }
 
 void signOutCurrentUser() async {
+  final _auth = FirebaseAuth.instance;
+
   try {
     _auth.signOut();
   } catch (e) {

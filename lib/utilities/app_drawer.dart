@@ -1,9 +1,6 @@
 import 'package:bugshooapp/screens/add_bug.dart';
-import 'package:bugshooapp/screens/all_bugs.dart';
 import 'package:bugshooapp/screens/project_list.dart';
 import 'package:bugshooapp/screens/reports_screen.dart';
-import 'package:bugshooapp/screens/welcome_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bugshooapp/services/functions.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -50,15 +47,15 @@ class _AppDrawerState extends State<AppDrawer> {
                 });
                 try {
                   signOutCurrentUser();
+
+                  setState(() {
+                    _processing = false;
+                  });
+
+                  Navigator.popUntil(context, ModalRoute.withName('/'));
                 } catch (e) {
                   print(e);
                 }
-                setState(() {
-                  _processing = false;
-                });
-
-                Navigator.popUntil(
-                    context, ModalRoute.withName(WelcomeScreen.id));
               },
             ),
           ],

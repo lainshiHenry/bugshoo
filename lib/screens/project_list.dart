@@ -1,7 +1,5 @@
 import 'package:bugshooapp/screens/add_project.dart';
-import 'package:bugshooapp/screens/all_bugs.dart';
 import 'package:bugshooapp/screens/all_bugs_by_project.dart';
-import 'package:bugshooapp/services/firestore_functions.dart';
 import 'package:bugshooapp/utilities/app_drawer.dart';
 import 'package:bugshooapp/utilities/arguments.dart';
 import 'package:bugshooapp/utilities/constants.dart';
