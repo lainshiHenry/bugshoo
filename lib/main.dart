@@ -1,8 +1,8 @@
 import 'package:bugshooapp/screens/add_bug.dart';
 import 'package:bugshooapp/screens/add_project.dart';
-import 'package:bugshooapp/screens/all_bugs.dart';
 import 'package:bugshooapp/screens/all_bugs_by_project.dart';
 import 'package:bugshooapp/screens/detailed_bug.dart';
+import 'package:bugshooapp/screens/loading_screen.dart';
 import 'package:bugshooapp/screens/login_screen.dart';
 import 'package:bugshooapp/screens/project_list.dart';
 import 'package:bugshooapp/screens/registration_screen.dart';
@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
         '/': (context) => WelcomeScreen(),
         WelcomeScreen.id: (context) => WelcomeScreen(),
         ProjectList.id: (context) => ProjectList(),
-        AllBugs.id: (context) => AllBugs(),
         DetailedBug.id: (context) => DetailedBug(),
         SettingsScreen.id: (context) => SettingsScreen(),
         LoginScreen.id: (context) => LoginScreen(),
@@ -34,6 +33,7 @@ class MyApp extends StatelessWidget {
         ReportsScreen.id: (context) => ReportsScreen(),
         AllBugsByProject.id: (context) => AllBugsByProject(),
         AddProject.id: (context) => AddProject(),
+        LoadingScreen.id: (context) => LoadingScreen(),
       },
     );
   }

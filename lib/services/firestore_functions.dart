@@ -75,7 +75,7 @@ void returnListOfProjects() async {
 }
 
 Future<String> assignBugToUser(
-    {String projectName, String timestamp, String name}) async {
+    {String projectName, String timestamp, String userName}) async {
   String currentTimestamp = DateTime.now().millisecondsSinceEpoch.toString();
   String txtString = '';
 
@@ -86,11 +86,11 @@ Future<String> assignBugToUser(
         .collection(projectName)
         .document(timestamp)
         .setData({
-      'assignedTo': '$name',
+      'assignedTo': '$userName',
       'assignedOn': '$currentTimestamp',
       'status': 'In Progress',
     }, merge: true);
-    txtString = 'Assigned to $name';
+    txtString = 'Assigned to $userName';
   } catch (e) {
     txtString = e.toString();
   }

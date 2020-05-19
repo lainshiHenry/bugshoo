@@ -1,5 +1,6 @@
 import 'package:bugshooapp/screens/add_project.dart';
 import 'package:bugshooapp/screens/all_bugs_by_project.dart';
+import 'package:bugshooapp/services/user_profile.dart';
 import 'package:bugshooapp/utilities/app_drawer.dart';
 import 'package:bugshooapp/utilities/arguments.dart';
 import 'package:bugshooapp/utilities/constants.dart';
@@ -34,7 +35,7 @@ class _ProjectListState extends State<ProjectList> {
       body: StreamBuilder<QuerySnapshot>(
         stream: _firestoreInstance
             .collection('projectList')
-            .orderBy('projectName', descending: false)
+            .where('projectName', whereIn: currentUser.authorizedProject)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -59,6 +60,7 @@ class _ProjectListState extends State<ProjectList> {
             kProjectList.add(projectName);
             projectListCount = projectNameList.length + 1;
           }
+          print(currentUser);
 
           return Container(
               child: ListView.separated(

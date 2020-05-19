@@ -4,6 +4,7 @@ import 'package:bugshooapp/screens/reports_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:bugshooapp/services/functions.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:bugshooapp/services/user_profile.dart';
 
 class AppDrawer extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _AppDrawerState extends State<AppDrawer> {
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-              child: Text('Hello '),
+              child: Text('Hello ${currentUser.firstName}'),
             ),
             NavigationItem(
               leftIcon: Icons.list,

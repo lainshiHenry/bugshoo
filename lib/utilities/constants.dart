@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//App-related Data
+
 const kButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,
   fontWeight: FontWeight.bold,

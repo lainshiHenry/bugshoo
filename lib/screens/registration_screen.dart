@@ -1,4 +1,4 @@
-import 'package:bugshooapp/screens/all_bugs.dart';
+import 'package:bugshooapp/screens/all_bugs_by_project.dart';
 import 'package:flutter/material.dart';
 import 'package:bugshooapp/utilities/rounded_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -78,7 +78,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
                     if (newUser != null) {
-                      Navigator.pushNamed(context, AllBugs.id);
+                      Navigator.pushNamed(context, AllBugsByProject.id);
                     }
                     setState(() {
                       showSpinner = false;

@@ -57,7 +57,7 @@ class _DetailedBugState extends State<DetailedBug> {
                       snackBarText = await assignBugToUser(
                         projectName: projectName,
                         timestamp: timestamp,
-                        name: currentUser,
+                        userName: currentUser,
                       );
 
                       setState(() => _savingData = false);
